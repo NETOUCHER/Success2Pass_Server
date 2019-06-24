@@ -26,9 +26,9 @@ def add():
             os.popen(addcmd.format(ip))
         else:
             os.popen('sudo ' + addcmd.format(ip,eth))
-        return "Success! Now your ip " + ip + " is added to the rules."
+        return jsonify({'status':"success",'info':"Success! Now ip " + ip + " is added to the rules."})
     else:
-        return "Repeat! Your ip " + ip + " already exists in the rules."
+        return jsonify({'status':"repeat",'info':"Repeat! Your ip " + ip + " already exists in the rules."})
 
 @app.route('/s2p/add/<ip>')
 def addIp(ip):
@@ -37,9 +37,9 @@ def addIp(ip):
             os.popen(addcmd.format(ip))
         else:
             os.popen('sudo ' + addcmd.format(ip,eth))
-        return "Success! Now ip " + ip + " is added to the rules."
+        return jsonify({'status':"success",'info':"Success! Now ip " + ip + " is added to the rules."})
     else:
-        return "Repeat! Your ip " + ip + " already exists in the rules."
+        return jsonify({'status':"repeat",'info':"Repeat! Your ip " + ip + " already exists in the rules."})
 
 @app.route('/s2p/del/<ip>')
 def delIp(ip):
@@ -48,13 +48,13 @@ def delIp(ip):
             os.popen(delcmd.format(ip))
         else:
             os.popen('sudo ' + delcmd.format(ip,eth))
-        return "Success! Now ip " + ip + " is removed from the rules."
+        return jsonify({'status':"success",'info':"Success! Now ip " + ip + " is removed from the rules."})
     else:
-        return "Error! Your ip " + ip + " not exists in the rules."
+        return jsonify({'status':"notexists",'info':"Error! Your ip " + ip + " not exists in the rules."})
 
 @app.route('/s2p/get/<ip>')
 def getIp(ip):
-    return str(getIpExist(ip))
+    return jsonify({'value':getIpExist(ip)})
 
 def getIpExist(ip):
     code = 1
